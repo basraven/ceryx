@@ -22,18 +22,6 @@ spec:
         task: ceryx
         k8s-app: ceryx
     spec:
-      initContainers:
-      - name: init-ceryx
-        image: alpine/git
-        args:
-            - clone
-            - --single-branch
-            - --
-            - https://github.com/basraven/ceryx.git
-            - /go
-        volumeMounts:
-        - name: src
-          mountPath: /go/src
       containers:
       - name: ceryx
         ports:
@@ -44,13 +32,8 @@ spec:
         - name: CHAT_ID
           value: ""
         image: golang:alpine
-        cmd: ["go", "run", "ceryx"]
-        volumeMounts:
-        - name: src
-          mountPath: /go/src
-      volumes:
-      - name: src
-        emptyDir: {}
+        command: [ "/bin/sh" ]
+        args: ["-c", "apk add git && go get -u github.com/basraven/ceryx && go build github.com/basraven/ceryx && ceryx"]
 ---
 apiVersion: v1
 kind: Service

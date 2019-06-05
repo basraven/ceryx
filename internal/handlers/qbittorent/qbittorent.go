@@ -24,5 +24,5 @@ func Handle(w http.ResponseWriter, r *http.Request, cb func(string) ) {
 }
 
 func composeMessage(torName string, torCategory string, torfileCount string, torSize string) (string) {
-	return "QBIT: Completed " + torName + "\n" + torCategory + " " + torfileCount + " files with size with size " + torSize
+	return "QBIT: Completed " + torName + "\n" + torCategory + " " + torfileCount + " files with size " + torSize
 }
